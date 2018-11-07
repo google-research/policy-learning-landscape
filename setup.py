@@ -31,7 +31,7 @@ with codecs.open(path.join(here, 'README.md'), encoding='utf-8') as f:
 install_requires = [
     'absl-py >= 0.2.2',
     'tensorflow',
-    'gym >= 0.10.5'
+    'gym == 0.9.1'
 ]
 
 description = (
