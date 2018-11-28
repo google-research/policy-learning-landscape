@@ -17,22 +17,18 @@ python3 run_eager_policy_optimization.py --env Hopper-v1 --policy_type normal --
 ```
 
 Parameters will be saved into `./parameters` as numpy files. After obtaining
-some parameters from different runs use the following command to interpolate
-between them.
+some parameters from different runs use the following commands to analyze the landscape.
 
-First install eager_pg: `pip install -e .`.
+1. First install eager_pg: `pip install -e .`.
 
-Paired Random Directions Experiment:
-
+2. Random Pertubations Experiment:
 ```
 cd interpolation_experiments
 python paired_random_directions_experiment.py --p1 ./path/to/parameter/1/npy \
 --save_dir ./path/to/save/in/ \
 --alpha 0.5 --std 0.5 --n_directions 500
 ```
-
-Linear Interpolation Experiment:
-
+3. Linear Interpolation Experiment:
 ```
 cd interpolation_experiments
 python simple_1d_interpolation_experiment.py --p1 ./path/to/parameter/1/npy \
