@@ -65,6 +65,7 @@ def get_callbacks(save_directory='./', experiment_name='experiment', hidden_unit
         os.path.join(directory, '{epoch:02d}-{val_loss:.2f}.weights'),
         save_weights_only=True,
         verbose=1,
+        period=5,
         )
   ]
   return callbacks
