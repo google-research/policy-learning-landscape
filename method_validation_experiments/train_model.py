@@ -1,6 +1,7 @@
 """Train a simple model on FashionMNIST."""
 import time
 import random
+import os
 
 from absl import flags
 import numpy as np
@@ -20,9 +21,14 @@ flags.DEFINE_integer('n_hidden', 0,
 flags.DEFINE_integer('epochs', 100,
                      'Number of epochs to train for.')
 
+hidden_units_map = [0, 12, 24, 36, 48, 52, 64]
 
 def main(_):
+  TASK_ID = int(os.getenv('SLURM_ARRAY_TASK_ID', -1))
   tf.logging.set_verbosity(tf.logging.INFO)
+  if TASK_ID >= 0:
+    FLAGS.n_hidden = hidden_units_map[TASK_ID]
+    tf.logging.info('hidden units updated to: %d', FLAGS.n_hidden)
   tf.logging.info('Training simple neural network.')
 
   tf.set_random_seed(0)
