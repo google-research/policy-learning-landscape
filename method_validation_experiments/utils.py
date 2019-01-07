@@ -35,7 +35,7 @@ def load_data(batch_size=64):
   # full_dataset = original_dataset.batch(FULL_DATASET_SIZE)
   return ((X_train, Y_train),
           (X_test, Y_test),
-          {'image_size': image_size,
+          {'input_size': image_size,
            'output_size': output_size})
 
 def get_model(shapes, hidden_units=0, device='gpu:0', hidden_activation=None):
@@ -50,10 +50,11 @@ def get_model(shapes, hidden_units=0, device='gpu:0', hidden_activation=None):
 
     return tf.keras.Sequential(layers)
 
-def get_callbacks(hidden_units=0):
+def get_callbacks(experiment_name='experiment', hidden_units=0):
   callbacks = [
     tf.keras.callbacks.ModelCheckpoint(
-        ('./checkpoints-' + str(hidden_units) + \
+        ('./' + experiment_name + \
+         'checkpoints-' + str(hidden_units) + \
          '/{epoch:02d}-{val_loss:.2f}.weights'),
         save_weights_only=True,
         verbose=1,
