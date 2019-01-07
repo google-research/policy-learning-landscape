@@ -1,4 +1,6 @@
 """Utilities for simple training."""
+import os
+
 import numpy as np
 import tensorflow as tf
 
@@ -50,12 +52,12 @@ def get_model(shapes, hidden_units=0, device='gpu:0', hidden_activation=None):
 
     return tf.keras.Sequential(layers)
 
-def get_callbacks(experiment_name='experiment', hidden_units=0):
+def get_callbacks(save_directory='./', experiment_name='experiment', hidden_units=0):
   callbacks = [
     tf.keras.callbacks.ModelCheckpoint(
-        ('./' + experiment_name + \
-         'checkpoints-' + str(hidden_units) + \
-         '/{epoch:02d}-{val_loss:.2f}.weights'),
+        os.path.join(save_directory, experiment_name,
+         'checkpoints-hunits' + str(hidden_units),
+         '{epoch:02d}-{val_loss:.2f}.weights'),
         save_weights_only=True,
         verbose=1,
         )

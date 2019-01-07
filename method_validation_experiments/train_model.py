@@ -22,7 +22,9 @@ flags.DEFINE_integer('epochs', 100,
                      'Number of epochs to train for.')
 flags.DEFINE_integer('batch_size', 1024,
                      'Batch size to use for training')
-
+flags.DEFINE_string('save_directory',
+                    os.getenv('SCRATCH', './'),
+                    'Default save directory.')
 # A map from array id to hidden units.
 hidden_units_map = [0, 12, 24, 36, 48, 52, 64]
 
@@ -39,7 +41,8 @@ def main(_):
   random.seed(0)
   (X_train, Y_train), _, shapes = utils.load_data()
   model = utils.get_model(shapes, FLAGS.n_hidden, device=FLAGS.device)
-  callbacks = utils.get_callbacks(FLAGS.experiment_name, FLAGS.n_hidden)
+  callbacks = utils.get_callbacks(
+          FLAGS.save_directory, FLAGS.experiment_name, FLAGS.n_hidden)
 
   # We will now compile and print out a summary of our model.
   model.compile(loss='categorical_crossentropy',
