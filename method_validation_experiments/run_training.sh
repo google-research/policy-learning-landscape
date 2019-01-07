@@ -8,6 +8,8 @@
 #SBATCH --job-name=fMNISTbasic
 #SBATCH --error=/scratch/zafarali/brainlogs/err/fMNISTbasic_%j.err
 #SBATCH --output=/scratch/zafarali/brainlogs/out/fMNISTbasic_%j.out
+module load cuda/8.0.44
+module load cudnn/7.0
 source $BRAIN_ENV
 python3 train_model.py --epochs 100 --experiment_name basic_training --device "gpu:0" --batch_size 2048
 
