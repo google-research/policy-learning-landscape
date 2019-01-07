@@ -13,6 +13,8 @@ gfile = tf.gfile
 
 flags.DEFINE_string('experiment_name', 'experiment',
                     'Name of the experiment.')
+flags.DEFINE_string('device', 'gpu:0',
+                    'Device to run graph on..')
 flags.DEFINE_integer('n_hidden', 0,
                      'Number of hidden units. If zero, the model is linear.')
 flags.DEFINE_integer('epochs', 100,
@@ -27,7 +29,7 @@ def main(_):
   np.random.seed(0)
   random.seed(0)
   (X_train, Y_train), _, shapes = utils.load_data()
-  model = utils.get_model(shapes, FLAGS.hidden_units, device='gpu:0')
+  model = utils.get_model(shapes, FLAGS.hidden_units, device=FLAGS.device)
   callbacks = utils.get_callbacks(FLAGS.hidden_units)
 
   # We will now compile and print out a summary of our model.
