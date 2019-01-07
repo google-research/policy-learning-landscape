@@ -53,11 +53,16 @@ def get_model(shapes, hidden_units=0, device='gpu:0', hidden_activation=None):
     return tf.keras.Sequential(layers)
 
 def get_callbacks(save_directory='./', experiment_name='experiment', hidden_units=0):
+  directory = os.path.join(
+          save_directory,
+          experiment_name,
+          'checkpoints-hunits' + str(hidden_units))
+  if not os.path.exists(directory):
+    os.makedirs(directory)
+
   callbacks = [
     tf.keras.callbacks.ModelCheckpoint(
-        os.path.join(save_directory, experiment_name,
-         'checkpoints-hunits' + str(hidden_units),
-         '{epoch:02d}-{val_loss:.2f}.weights'),
+        os.path.join(directory, '{epoch:02d}-{val_loss:.2f}.weights'),
         save_weights_only=True,
         verbose=1,
         )
