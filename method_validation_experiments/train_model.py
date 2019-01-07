@@ -20,7 +20,10 @@ flags.DEFINE_integer('n_hidden', 0,
                      'Number of hidden units. If zero, the model is linear.')
 flags.DEFINE_integer('epochs', 100,
                      'Number of epochs to train for.')
+flags.DEFINE_integer('batch_size', 1024,
+                     'Batch size to use for training')
 
+# A map from array id to hidden units.
 hidden_units_map = [0, 12, 24, 36, 48, 52, 64]
 
 def main(_):
@@ -49,7 +52,7 @@ def main(_):
   model.fit(
     x=X_train,
     y=Y_train,
-    batch_size=1024,
+    batch_size=FLAGS.batch_size,
     epochs=FLAGS.epochs,
     callbacks=callbacks,
     validation_split=0.1)
