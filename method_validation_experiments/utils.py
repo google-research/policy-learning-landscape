@@ -64,6 +64,6 @@ def get_callbacks(hidden_units=0):
 
 if __name__ == '__main__':
   load_data()
-  get_model({'input_size':(784, 1), 'output_size': 10})
+  get_model({'input_size':(784, 1), 'output_size': 10}, device='cpu:0')
   get_callbacks()
 
