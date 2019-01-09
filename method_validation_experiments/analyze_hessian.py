@@ -72,8 +72,8 @@ def main(_):
   hess_eval, eigenvalues_eval, eigenvectors_eval = sess.run(
           (hess, eigenvalues, eigenvectors),
           feed_dict={
-              Y_TRUE_PH: Y_train[:100],
-              X_TRUE_PH: X_train[:100]})
+              Y_TRUE_PH: Y_train[:int(0.05*len(Y_train)],
+              X_TRUE_PH: X_train[:int(0.05*len(Y_train)]})
   tf.logging.info('Session ran successfully.')
   print(hess_eval)
   print(eigenvalues_eval)
