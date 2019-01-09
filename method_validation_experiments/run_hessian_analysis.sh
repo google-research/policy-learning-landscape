@@ -14,5 +14,5 @@ module load cuda/8.0.44
 module load cudnn/7.0
 source $BRAIN_ENV
 
-python3 analyze_hessian.py --device "gpu:0" --save_directory basic_training --load_directory $WEIGHTS
+python3 analyze_hessian.py --device "gpu:0" --save_directory $SCRATCH/basic_training --load_directory $WEIGHTS
 
