@@ -77,6 +77,11 @@ def main(_):
     num_samples=FLAGS.n_samples,
     x0_samples=100)
 
+  curvature_projection = sampler_tools.get_curvature_projection(
+          np.array([forward_samples, backward_samples]).T)
+  gradient_projection = sampler_tools.get_gradient_projection(
+          np.array([forward_samples, backward_samples]).T)
+
   tf.logging.info('Saving to numpy.')
   np.save(
     os.path.join(FLAGS.save_directory, 'forward_samples.npy'),
@@ -84,6 +89,12 @@ def main(_):
   np.save(
     os.path.join(FLAGS.save_directory, 'backward_samples.npy'),
     backward_samples)
+  np.save(
+    os.path.join(FLAGS.save_directory, 'curvature_projection.npy'),
+    curvature_projection)
+  np.save(
+    os.path.join(FLAGS.save_directory, 'gradient_projection.npy'),
+    gradient_projection)
   tf.logging.info('Saved.')
 
 if __name__ == '__main__':
