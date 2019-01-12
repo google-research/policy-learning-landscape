@@ -26,6 +26,7 @@ flags.DEFINE_string('save_directory',
                     os.getenv('SCRATCH', './'),
                     'Default save directory.')
 def main(_):
+  tf.logging.set_verbosity(tf.logging.INFO)
   tf.logging.info('Analyzing hessian of simple neural network.')
   tf.set_random_seed(0)
   np.random.seed(0)
@@ -50,6 +51,7 @@ def main(_):
   model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
+  print(model.summary())
   model.load_weights(FLAGS.load_directory)
 
   tf.logging.info('Weights were loaded from %s', FLAGS.load_directory)
