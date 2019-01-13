@@ -30,11 +30,12 @@ flags.DEFINE_string('save_directory',
         os.getenv('SCRATCH', './'), 'Default save directory.')
 
 def main(_):
-  tf.logging.set_verbosity(tf.logging.INFO)
+  SEED = int(os.getenv('SLURM_ARRAY_TASK_ID', 0))
+  tf.logging.set_verbosity(tf.logging.FATAL)  # Use FATAL here because graham.
   tf.logging.info('Running proposed method on simple neural network.')
-  tf.set_random_seed(0)
-  np.random.seed(0)
-  random.seed(0)
+  tf.set_random_seed(SEED)
+  np.random.seed(SEED)
+  random.seed(SEED)
   (X_train, Y_train), _, shapes = utils.load_data()
   print(X_train.shape)
   # Use the same amount of data as in the Hessian estimation.
@@ -70,30 +71,31 @@ def main(_):
   model.load_weights(FLAGS.load_directory)
   weights = posthoc_tools.get_flat_params(model.variables)
   posthoc_tools.set_flat_params(model, weights)
+  print('Evaluating samples.')
   forward_samples, backward_samples = sampler_tools.get_sampled_loss_function(
     L_fn_mnist,
     weights,
     step_size=FLAGS.step_size,
     num_samples=FLAGS.n_samples,
     x0_samples=100)
-
+  print('Sampled evaluated. Now projecting.')
   curvature_projection = sampler_tools.get_curvature_projection(
           np.array([forward_samples, backward_samples]).T)
   gradient_projection = sampler_tools.get_gradient_projection(
           np.array([forward_samples, backward_samples]).T)
-
+  print('Projecting complete. Now saving.')
   tf.logging.info('Saving to numpy.')
   np.save(
-    os.path.join(FLAGS.save_directory, 'forward_samples.npy'),
+    os.path.join(FLAGS.save_directory, 'forward_samples-{}.npy'.format(SEED)),
     forward_samples)
   np.save(
-    os.path.join(FLAGS.save_directory, 'backward_samples.npy'),
+    os.path.join(FLAGS.save_directory, 'backward_samples-{}.npy'.format(SEED)),
     backward_samples)
   np.save(
-    os.path.join(FLAGS.save_directory, 'curvature_projection.npy'),
+    os.path.join(FLAGS.save_directory, 'curvature_projection-{}.npy'.format(SEED)),
     curvature_projection)
   np.save(
-    os.path.join(FLAGS.save_directory, 'gradient_projection.npy'),
+    os.path.join(FLAGS.save_directory, 'gradient_projection-{}.npy'.format(SEED)),
     gradient_projection)
   tf.logging.info('Saved.')
 
