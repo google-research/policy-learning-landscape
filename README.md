@@ -52,13 +52,11 @@ gradient reinforcement learning.
 If you use the proposed method or code, we'd appreciate if you could cite this work!
 
 ```
-@misc{ahmed2018understanding,
-    title={Understanding the impact of entropy on policy optimization},
-    author={Zafarali Ahmed and Nicolas Le Roux and Mohammad Norouzi and Dale Schuurmans},
-    year={2018},
-    eprint={1811.11214},
-    archivePrefix={arXiv},
-    primaryClass={cs.LG}
+@article{ahmed2018understanding,
+  title={Understanding the impact of entropy in policy learning},
+  author={Ahmed, Zafarali and Roux, Nicolas Le and Norouzi, Mohammad and Schuurmans, Dale},
+  journal={arXiv preprint arXiv:1811.11214},
+  year={2018}
 }
 ```
 
