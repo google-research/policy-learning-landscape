@@ -47,6 +47,21 @@ gradient reinforcement learning.
 - `analysis_tools`: contains tooling to make nice figures in papers.
 - `interpolation_experiments`: Experiments to explore the landscape in policy optimization.
 
+## Citation
+
+If you use the proposed method or code, we'd appreciate if you could cite this work!
+
+```
+@misc{ahmed2018understanding,
+    title={Understanding the impact of entropy on policy optimization},
+    author={Zafarali Ahmed and Nicolas Le Roux and Mohammad Norouzi and Dale Schuurmans},
+    year={2018},
+    eprint={1811.11214},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+```
+
 ## Disclaimer
 
 This is not an official Google product.
